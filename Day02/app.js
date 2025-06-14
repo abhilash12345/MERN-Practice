@@ -8,4 +8,4 @@ const print = (txt) =>{
     console.log("---------------")
 
 }
-print("Hello")
+print("Hello")  
