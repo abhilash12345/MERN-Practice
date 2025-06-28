@@ -17,12 +17,18 @@ const App = () => {
       return prev - 2;
     });
   };
+  const handleReset = () => {
+    setCounter((prev) => {
+      return prev - prev;
+    });
+  };
 
   return (
     <div>
       <h1>{counter}</h1>
       <button onClick={handleIncrement}>++</button>
       <button onClick={handleDecrement}>--</button>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 };
