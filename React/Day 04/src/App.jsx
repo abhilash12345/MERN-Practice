@@ -1,14 +1,28 @@
+import { useState } from "react";
+
 const App = () => {
-  let searchText = "Hello";
-  const handleSearch = (e) => {
-    const val = e.target.value;
-    searchText = val;
-    console.log(searchText);
+  const [counter, setCounter] = useState(0);
+
+  const handleIncrement = () => {
+    setCounter((prev) => {
+      return prev + 1;
+    });
+    setCounter((prev) => {
+      return prev + 1;
+    });
   };
+
+  const handleDecrement = () => {
+    setCounter((prev) => {
+      return prev - 2;
+    });
+  };
+
   return (
     <div>
-      <input type="text" onKeyUp={handleSearch} />
-      <h2>{searchText}</h2>
+      <h1>{counter}</h1>
+      <button onClick={handleIncrement}>++</button>
+      <button onClick={handleDecrement}>--</button>
     </div>
   );
 };
