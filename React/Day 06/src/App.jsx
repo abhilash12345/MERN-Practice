@@ -1,42 +1,65 @@
-// uncontrolled component - React handle ewvrtything via DOM
+import { useState } from "react";
 
 const App = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const name = e.target.username.value;
-    console.log("name", name);
-    const city = e.target.city.value;
-    console.log("city", city);
-    const email = e.target.email.value;
-    console.log("email", email);
-    if (name.length <= 2) {
-      alert("invalid name");
-    } else if (city.length <= 1) {
-      alert("invalid city");
-    } else if (email.length < 5) {
-      alert("invalid email");
+  const [fruits, setFruits] = useState(() => {
+    const savedFruits = localStorage.getItem("fruits"); // string JSON
+    if (savedFruits) {
+      const arr = JSON.parse(savedFruits); // convert string json to object
+      return arr;
     } else {
-      alert("success");
-      // console.log("success!!");
+      return [];
     }
+  });
+
+  const handleAddFruit = (e) => {
+    e.preventDefault();
+    const fruitname = e.target.fruitname.value;
+
+    setFruits((prev) => {
+      if (prev.includes(fruitname)) {
+        alert("fruits already exisit");
+        return prev;
+      }
+      const newArr = [...prev];
+      newArr.push(fruitname);
+      localStorage.setItem("fruits", JSON.stringify(newArr)); // convert object ->>string  :: json.stringify
+      return newArr;
+    });
+  };
+
+  const handleDelete = (idx) => {
+    setFruits((prev) => {
+      const newArr = [...prev];
+      newArr.splice(idx, 1);
+      localStorage.setItem("fruits", JSON.stringify(newArr));
+      return newArr;
+    });
   };
 
   return (
-    <>
-      {/* we were getting the value from an event but the control was always with the dom*/}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input type="text" name="username"></input>
-        </div>
-        <div>
-          <input type="email" name="email"></input>
-        </div>
-        <div>
-          <input type="text" name="city"></input>
-        </div>
+    <div>
+      <form onSubmit={handleAddFruit}>
+        <input type="text" placeholder="fruitname" name="fruitname" required />
         <button>Submit</button>
       </form>
-    </>
+      <div>
+        {fruits.map((elem, idx) => {
+          return (
+            <div key={elem}>
+              <p>{elem}</p>
+              <button
+                onClick={() => {
+                  handleDelete(idx);
+                }}
+              >
+                Delete
+              </button>
+              <button>Edit</button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 

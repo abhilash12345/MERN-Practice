@@ -11,7 +11,7 @@ const App = () => {
 
   // enter first number
   // we tell teh operator
-  // we ente teh second number
+  // we enter the second number
 
   const handleNumberClick = (e) => {
     const val = e.target.innerText;
