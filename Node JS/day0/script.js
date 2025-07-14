@@ -1,3 +1,5 @@
+const bmi = require("./bmi_helper");
+
 const student = {
   name: "abhilash",
   city: "dhanbad",
@@ -5,13 +7,4 @@ const student = {
   weight: 70,
 };
 
-const calculateBMI = (obj) => {
-  const { height, weight } = obj;
-  const bmi = weight / height ** 2;
-
-  setTimeout(() => {
-    console.log(bmi);
-  }, 2000);
-};
-
-calculateBMI(student);
+bmi(student);
