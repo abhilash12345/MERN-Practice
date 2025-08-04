@@ -12,9 +12,9 @@ const NavBar = () => {
   };
   return (
     <nav className="flex px-6 py-4 justify-between items-center bg-emerald-200">
-      <Link to={"/"}>Shopify</Link>
+      <div className="text-xl font-bold text-purple-600">Shopify</div>
 
-      <div>
+      <div className="flex gap-4 items-center">
         <input
           className="px-2 py-1 border-1 border-amber-700 rounded-lg mr-2"
           value={searchText}
@@ -29,7 +29,15 @@ const NavBar = () => {
           Search
         </button>
       </div>
-      <div className="h-8 w-8 bg-blue-600 rounded-full"></div>
+      <div className="flex gap-4 items-center">
+        <Link to="/" className="text-blue-700 underline">
+          Home
+        </Link>
+        <Link to="/login" className="text-blue-700 underline">
+          Login
+        </Link>
+        <div></div>
+      </div>
     </nav>
   );
 };
