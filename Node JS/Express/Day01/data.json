@@ -8,5 +8,15 @@
     "title": "Books",
     "price": 299,
     "quantity": 1600
+  },
+  {
+    "title": "Shirt",
+    "price": 1000,
+    "quantity": 3
+  },
+  {
+    "title": "Shirt",
+    "price": 1000,
+    "quantity": 3
   }
 ]
