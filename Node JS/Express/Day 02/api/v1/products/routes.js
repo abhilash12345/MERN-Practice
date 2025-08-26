@@ -2,6 +2,8 @@ const express = require("express");
 const {
   createProductController,
   getProductController,
+  updateProductController,
+  deleteProductController,
 } = require("./controllers");
 const { validateProductForCreation } = require("./dto");
 
@@ -11,16 +13,8 @@ productsRouter.get("/", getProductController);
 
 productsRouter.post("/", validateProductForCreation, createProductController);
 
-productsRouter.patch("/:productId", (req, res) => {
-  res.status(200).json({
-    message: "(PATCH)Dummy product endpoint!",
-  });
-});
+productsRouter.patch("/:productId", updateProductController);
 
-productsRouter.delete("/:productId", (req, res) => {
-  res.status(200).json({
-    message: "(DELETE)Dummy product endpoint!",
-  });
-});
+productsRouter.delete("/:productId", deleteProductController);
 
 module.exports = { productsRouter };

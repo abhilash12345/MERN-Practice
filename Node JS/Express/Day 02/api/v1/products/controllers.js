@@ -1,4 +1,9 @@
-const { saveProduct, readProducts } = require("../../../models/productModel");
+const {
+  saveProduct,
+  readProducts,
+  updateProducts,
+  deleteProducts,
+} = require("../../../models/productModel");
 
 const createProductController = async (req, res) => {
   try {
@@ -36,4 +41,47 @@ const getProductController = async (req, res) => {
   }
 };
 
-module.exports = { createProductController, getProductController };
+const updateProductController = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const data = req.body;
+    const products = await updateProducts(data, productId);
+    res.status(200).json({
+      isSuccess: true,
+      message: "Product updated",
+      data: {
+        products,
+      },
+    });
+  } catch (err) {
+    console.log("<<--- Error in updateProductController --->>", err.message);
+    res.status(500).json({
+      isSuccess: false,
+      message: err.message,
+    });
+  }
+};
+
+const deleteProductController = async (req, res) => {
+  try {
+    const { productId } = req.params;
+
+    const products = await deleteProducts(productId);
+    res.status(200).json({
+      message: "product deleted",
+    });
+  } catch (err) {
+    console.log("<<--- Error in deleteProductController --->>", err.message);
+    res.status(500).json({
+      isSuccess: false,
+      message: err.message,
+    });
+  }
+};
+
+module.exports = {
+  createProductController,
+  getProductController,
+  updateProductController,
+  deleteProductController,
+};

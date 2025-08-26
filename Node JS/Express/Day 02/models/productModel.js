@@ -26,8 +26,35 @@ const readProducts = async (data) => {
   return products;
 };
 
-//edit product
+const updateProducts = async (data, productId) => {
+  const products = await myReadFile(PRODUCTS_FILE_PATHS);
 
-//delete product
+  const idx = products.findIndex((elem) => {
+    return elem.id === productId;
+  });
 
-module.exports = { saveProduct, readProducts };
+  if (idx === -1) {
+    throw new Error("Invalid product ID");
+  }
+
+  const oldObj = products[idx];
+  products[idx] = { ...oldObj, ...data };
+  await mySaveFile(PRODUCTS_FILE_PATHS, products);
+  return products[idx];
+};
+
+const deleteProducts = async (productId) => {
+  const products = await myReadFile(PRODUCTS_FILE_PATHS);
+  const idx = products.findIndex((elem) => {
+    return elem.id === productId;
+  });
+  if (idx === -1) {
+    throw new Error("Invalid Product ID");
+  }
+
+  products.splice(idx, 1);
+  mySaveFile(PRODUCTS_FILE_PATHS, products);
+  return products;
+};
+
+module.exports = { saveProduct, readProducts, updateProducts, deleteProducts };
