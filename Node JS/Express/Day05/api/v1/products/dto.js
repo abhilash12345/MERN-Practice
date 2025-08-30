@@ -1,3 +1,5 @@
+const { default: mongoose } = require("mongoose");
+
 const createProductValidator = (req, res, next) => {
   try {
     console.log("------error in createProductValidator-----  ");
@@ -52,6 +54,16 @@ const updateProductValidator = (req, res, next) => {
   try {
     console.log("------error in updateProductValidator-----  ");
     const { title, price, description, quantity } = req.body;
+    const { productId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      res.status(400).json({
+        isSuccess: false,
+        message: "invalid product id",
+        data: {},
+      });
+      return;
+    }
 
     // validate the product id against the mongoose id
 
@@ -105,6 +117,16 @@ const deleteProductValidator = (req, res, next) => {
   try {
     console.log("------error in deleteProductValidator-----  ");
     // validate the product id against the mongoose id
+    const { productId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      res.status(400).json({
+        isSuccess: false,
+        message: "invalid product id",
+        data: {},
+      });
+      return;
+    }
 
     next();
   } catch (err) {
